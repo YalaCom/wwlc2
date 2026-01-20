@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>WWLC — World Wide Logistics Company | ETS2 VTC</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- AOS анимации -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-main: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-card: #161616;
+            --text-main: #e0e0e0;
+            --text-light: #a0a0a0;
+            --accent: #00d4ff;
+            --accent-dark: #0099cc;
+            --neon-glow: 0 0 15px rgba(0, 212, 255, 0.6);
+            --border-glow: 0 0 12px rgba(0, 212, 255, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0,212,255,0.08) 0%, transparent 25%),
+                radial-gradient(circle at 90% 80%, rgba(0,212,255,0.06) 0%, transparent 30%);
+            background-attachment: fixed;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(17,17,17,0.92);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,212,255,0.15);
+            padding: 15px 0;
+        }
+
+        .header-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-shadow: var(--neon-glow);
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            padding: 10px 24px;
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.4s;
+            box-shadow: var(--border-glow);
+        }
+
+        .nav-links a:hover {
+            background: var(--accent);
+            color: #000;
+            box-shadow: var(--neon-glow);
+            transform: translateY(-2px);
+        }
+
+        .btn-neon {
+            padding: 10px 24px;
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.4s;
+            text-decoration: none;
+            box-shadow: var(--border-glow);
+        }
+
+        .btn-neon:hover {
+            background: var(--accent);
+            color: #000;
+            box-shadow: var(--neon-glow);
+            transform: translateY(-2px);
+        }
+
+        main {
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 180px 20px 100px;
+            background: linear-gradient(rgba(10,10,10,0.7), rgba(10,10,10,0.4)), 
+                        url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80') center/cover no-repeat fixed;
+        }
+
+        .hero-content h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5.5rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+            text-shadow: 0 0 30px rgba(0,212,255,0.7), 0 0 60px rgba(0,212,255,0.4);
+            letter-spacing: 4px;
+        }
+
+        .hero-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: #fff;
+            font-weight: 400;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            margin-top: 60px;
+        }
+
+        .stat-card {
+            background: rgba(22,22,22,0.7);
+            border: 1px solid rgba(0,212,255,0.3);
+            border-radius: 15px;
+            padding: 25px 40px;
+            backdrop-filter: blur(8px);
+            box-shadow: var(--border-glow);
+            min-width: 220px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        section {
+            padding: 120px 20px;
+            width: 100%;
+        }
+
+        h2.section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.8rem;
+            text-align: center;
+            margin-bottom: 80px;
+            color: var(--accent);
+            text-shadow: 0 0 25px rgba(0,212,255,0.5);
+            position: relative;
+        }
+
+        h2.section-title::after {
+            content: '';
+            width: 120px;
+            height: 4px;
+            background: var(--accent);
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px var(--accent);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 35px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid rgba(0,212,255,0.25);
+            border-radius: 18px;
+            padding: 35px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(0,212,255,0.08), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .card:hover::before { opacity: 1; }
+        .card:hover {
+            transform: translateY(-12px);
+            border-color: var(--accent);
+            box-shadow: var(--neon-glow);
+        }
+
+        .card-icon {
+            font-size: 3.5rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px var(--accent);
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border: 1px solid rgba(0,212,255,0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--bg-secondary);
+        }
+
+        .faq-question {
+            padding: 22px 30px;
+            background: rgba(0,212,255,0.08);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .faq-question:hover { background: rgba(0,212,255,0.15); }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.3s ease;
+            padding: 0 30px;
+        }
+
+        .faq-answer.open {
+            max-height: 800px;
+            padding: 30px;
+        }
+
+        .arrow {
+            font-size: 1.4rem;
+            transition: transform 0.3s;
+        }
+
+        .faq-question.active .arrow {
+            transform: rotate(180deg);
+        }
+
+        /* Блок "Связь с администрацией" */
+        .admin-contact {
+            text-align: center;
+            padding: 80px 20px;
+            background: var(--bg-secondary);
+            border-top: 1px solid rgba(0,212,255,0.2);
+            border-bottom: 1px solid rgba(0,212,255,0.2);
+        }
+
+        .admin-contact h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(0,212,255,0.5);
+        }
+
+        .admin-contact p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: #ccc;
+        }
+
+        .admin-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 60px;
+        }
+
+        .big-btn {
+            padding: 18px 45px;
+            font-size: 1.3rem;
+            min-width: 280px;
+        }
+
+        footer {
+            background: #0a0a0a;
+            padding: 80px 20px 60px;
+            text-align: center;
+            border-top: 1px solid rgba(0,212,255,0.15);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        /* Адаптив */
+        @media (max-width: 1200px) {
+            .hero-content h1 { font-size: 4.5rem; }
+            .hero-content h2 { font-size: 1.8rem; }
+        }
+
+        @media (max-width: 768px) {
+            .hero { padding: 140px 15px 80px; }
+            .hero-content h1 { font-size: 3.8rem; }
+            .hero-stats { gap: 30px; }
+            .stat-card { min-width: 160px; padding: 20px 25px; }
+            .section { padding: 80px 15px; }
+            .header-container { flex-direction: column; gap: 15px; }
+            .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
+            .admin-buttons, .contact-buttons { gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="logo">WWLC</div>
+            <div class="nav-links">
+                <a href="https://discord.com/invite/KqeaWY482f" target="_blank">Discord</a>
+                <a href="https://t.me/c/3313972937/1" target="_blank">Telegram</a>
+                <a href="https://truckersmp.com/vtc/84514" target="_blank" class="btn-neon">TruckersMP VTC</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content" data-aos="fade-up" data-aos-duration="1200">
+                <h1>WWLC</h1>
+                <h2>World Wide Logistics Company</h2>
+                <p style="font-size:1.4rem; max-width:800px; margin:0 auto 50px; color:#ccc;">
+                    Самая атмосферная VTC для любителей Euro Truck Simulator 2 и TruckersMP<br>
+                    Конвои каждый день • Реалистичная логистика • Дружеская команда
+                </p>
+
+                <div class="hero-stats">
+                    <div class="stat-card" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="stat-number">20+</div>
+                        <div>Активных водителей</div>
+                    </div>
+                    <div class="stat-card" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="stat-number">500 000+</div>
+                        <div>Километров пройдено</div>
+                    </div>
+                    <div class="stat-card" data-aos="zoom-in" data-aos-delay="400">
+                        <div class="stat-number">Ежедневно</div>
+                        <div>Конвои в 20:30–21:00</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2 class="section-title" data-aos="fade-up">О компании</h2>
+            <div class="cards-grid">
+                <div class="card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-icon">🚛</div>
+                    <h3>Реалистичная логистика</h3>
+                    <p>Работаем по настоящим грузам, соблюдаем ПДД и правила TruckersMP. У нас есть собственная система рангов и зарплат.</p>
+                </div>
+                <div class="card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-icon">🛣️</div>
+                    <h3>Ежедневные конвои</h3>
+                    <p>Конвои каждый день в 20:30–21:00 по разным маршрутам Европы. Тематические, ночные, зимние рейсы — всегда интересно!</p>
+                </div>
+                <div class="card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card-icon">🎮</div>
+                    <h3>Дружеская атмосфера</h3>
+                    <p>Без токсичности и криков. Общаемся в голосовом чате, шутим, помогаем новичкам. Здесь рады всем!</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" style="background: var(--bg-secondary);">
+            <h2 class="section-title" data-aos="fade-up">Часто задаваемые вопросы</h2>
+            <div class="faq-container">
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="faq-question">Как вступить в WWLC? <span class="arrow">▼</span></div>
+                    <div class="faq-answer">
+                        <p>Заходишь в наш Discord → пишешь администратору в личку команду !заявка → просто поговоришь с администратором в голосовом чате (5–10 минут) — и ты с нами!</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="150">
+                    <div class="faq-question">Какие требования к водителям? <span class="arrow">▼</span></div>
+                    <div class="faq-answer">
+                        <p>Возраст 16+, установлен ETS2 (ДЛС не нужны), TruckersMP, микрофон, уважительное отношение к другим игрокам и соблюдение ПДД в игре.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="faq-question">Как часто у вас конвои? <span class="arrow">▼</span></div>
+                    <div class="faq-answer">
+                        <p>Конвои проходят каждый день в 20:30–21:00 МСК. Иногда бывают дополнительные тематические рейсы.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="250">
+                    <div class="faq-question">Нужно ли что-то заполнять на собеседовании? <span class="arrow">▼</span></div>
+                    <div class="faq-answer">
+                        <p>Ничего заполнять не надо! Просто короткий разговор с администратором в голосовом чате Discord — чтобы познакомиться.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="faq-question">Можно ли ездить с читами / мод-читами? <span class="arrow">▼</span></div>
+                    <div class="faq-answer">
+                        <p>Строго запрещено. За использование читов — моментальный бан из компании и жалоба в TruckersMP.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="350">
+                    <div class="faq-question">Как связаться с админами? <span class="arrow">▼</span></div>
+                    <div class="faq-answer">
+                        <p>Самый быстрый способ — Discord (пиши любому онлайн-админу). Также можно в Telegram-группе или личные сообщения.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Блок "Связь с администрацией" с одной кнопкой -->
+        <section class="admin-contact" data-aos="fade-up">
+            <h2>Связь с администрацией</h2>
+            <p style="font-size: 1.3rem; max-width: 700px; margin: 0 auto 40px; color: #ccc;">
+                Если у тебя есть вопросы, хочешь вступить или просто пообщаться — пиши нам! Мы всегда на связи и рады новым дальнобойщикам.
+            </p>
+            <div class="admin-buttons">
+                <a href="https://t.me/WWLC_Owner" target="_blank" class="btn-neon big-btn">Написать</a>
+            </div>
+        </section>
+
+        <section id="join">
+            <h2 class="section-title" data-aos="fade-up">Присоединяйся к WWLC прямо сейчас!</h2>
+            <div class="contact-buttons" data-aos="zoom-in" data-aos-delay="200">
+                <a href="https://discord.com/invite/KqeaWY482f" target="_blank" class="btn-neon big-btn">Вступить в Discord</a>
+                <a href="https://t.me/c/3313972937/1" target="_blank" class="btn-neon big-btn">Telegram-группа</a>
+                <a href="https://truckersmp.com/vtc/84514" target="_blank" class="btn-neon big-btn">Наш VTC на TruckersMP</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="https://disk.yandex.ru/d/n5slukq6X-LW9g" target="_blank" class="btn-neon big-btn">Скачать готовый профиль</a>
+        </div>
+        <p>© 2025–2026 WWLC — World Wide Logistics Company. Все права защищены.</p>
+        <p style="margin-top:15px; font-size:0.9rem; color:#555;">
+            Сайт создан с любовью для всех дальнобойщиков виртуальной Европы 🚚💨
+        </p>
+    </footer>
+
+    <!-- Скрипты -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+            easing: 'ease-out'
+        });
+
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const isOpen = answer.classList.contains('open');
+
+                document.querySelectorAll('.faq-answer.open').forEach(openAnswer => {
+                    if (openAnswer !== answer) {
+                        openAnswer.classList.remove('open');
+                    }
+                });
+
+                document.querySelectorAll('.faq-question.active').forEach(q => {
+                    if (q !== this) {
+                        q.classList.remove('active');
+                    }
+                });
+
+                if (isOpen) {
+                    answer.classList.remove('open');
+                    this.classList.remove('active');
+                } else {
+                    answer.classList.add('open');
+                    this.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
